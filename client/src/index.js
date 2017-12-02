@@ -5,7 +5,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { Switch, Redirect, Route, BrowserRouter as Router } from 'react-router-dom';
 import PhotoSearchContainer from './containers/PhotoSearch/PhotoSearchContainer';
-
+import GuestListContainer from './containers/GuestList/GuestListContainer';
 
 ReactDOM.render(
     <Router>
@@ -15,6 +15,7 @@ ReactDOM.render(
         }
         }/>
         <Route path='/photos/search' component={PhotoSearchContainer}/>
+        <Route path='/dashboard' component={GuestListContainer}/>
         <Route path='/' component={App}/>
       </Switch>
     </Router>, document.getElementById('root'));
