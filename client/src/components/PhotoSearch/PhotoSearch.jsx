@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './PhotoSearch.sass';
+
+const styles = require('./PhotoSearch.sass');
 
 class PhotoSearch extends Component {
   render() {
     return (
-        <div className="PhotoSearch">
+        <div className={styles.PhotoSearch}>
           PhotoSearch
         </div>
     );
