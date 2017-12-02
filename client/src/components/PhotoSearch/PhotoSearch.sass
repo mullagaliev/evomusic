@@ -1,2 +1,77 @@
+.PhotoSearch, .PhotoSearch *
+  box-sizing: border-box
 .PhotoSearch
-  background-color: red
+  font-size: 14px
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  background-color: white
+  background-image: url('../../static/bg.png')
+  background-size: cover
+  padding: 2em
+  &:after
+    content: ''
+    display: block
+    clear: both
+
+.PhotoSlider
+  position: relative
+  width: 70%
+  height: 50vh
+  margin: 0 auto
+  &Item
+    width: 200px
+    height: 200px
+    float: left
+    img
+      width: 100%
+      object-fit: cover
+      object-position: center center
+.PhotoSearchSlider
+  position: relative
+  float: right
+  height: 100%
+  width: 50%
+  & > *
+    padding: 50px !important
+    height: 100% !important
+    width: 100% !important
+.PhotoSearchSource
+  position: relative
+  left: 0
+  top: 0
+  width: 50%
+  height: 100%
+  float: left
+  &Photo
+    border: 1em solid white
+    border-radius: 1em
+    background-image: url(http://www.fresher.ru/manager_content/02-2016/kak-by-vyglyadeli-zvyozdy-gollivuda-esli-by-ix-lica-byli-simmetrichnymi/10.jpg)
+    //left: calc( (100% - 230px) / 2 )
+    margin-right: calc( (100% - 230px) / 2 )
+    top: 50%
+    //width: 230px
+    //height: 276px
+    width: 70%
+    height: 70%
+    background-size: cover
+    background-position: center center
+    display: inline-block
+    position: absolute
+    transition: transform 750ms
+    transform: translate(0, -50%)
+    box-shadow: rgba(0, 0, 0, 0.15) 30px 5px 15px -10px, rgba(0, 0, 0, 0.15) -30px 5px 15px -10px
+    z-index: 100
+  &Title
+    background: rgba(0, 0, 0, 0.5)
+    color: white
+    padding: 5px
+    bottom: 0px
+    position: absolute
+    width: 100%
+    box-sizing: border-box
+    user-select: none
+    text-align: center
+    font-size: 22px
