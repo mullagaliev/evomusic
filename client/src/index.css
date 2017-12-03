@@ -24,3 +24,10 @@ body {
 .font20px{
   font-size: 18px !important;
 }
+
+.alignMiddle{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

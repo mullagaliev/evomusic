@@ -30,9 +30,9 @@ class PhotoSearch extends Component {
             </div>
           </div>
           {
-            this.state.startSearch ?  <Loader size='massive' active={this.state.foundName === null}>
+            this.state.startSearch ? this.state.foundName === null ? <Loader size='massive' active={this.state.foundName === null}>
               Поиск....
-            </Loader> : null
+            </Loader> : <div style={{fontSize: '160px'}} className={'alignMiddle'}>=</div> : null
           }
           {
             this.state.startSearch ? <div className={styles.PhotoSearchSlider}>
