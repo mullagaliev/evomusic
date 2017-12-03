@@ -1,14 +1,8 @@
 # Приложение evomusic
 
-Задачи:
-- [ ] Сделать клиентское приложение для отображения графа связей вашей музыки с музыкой друзей
-
 Технологии: 
 - [ ] React 
-- [ ] Redux
-- [ ] Socket.io
-- [ ] Vk api, yandex music api ????
-- [ ] Express
+
 
 ## Frontend
 ### Dependencies
