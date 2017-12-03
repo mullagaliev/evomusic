@@ -23,7 +23,7 @@ class CoverFlow extends React.Component {
     setTimeout(() => {
       const nextSlide = setInterval(() => {
         const nextElem = this.state.selectedIndex + 1 < this.props.imagesArr.length ? this.state.selectedIndex + 1 : this.props.imagesArr.length - 1;
-        if(nextElem === this.props.imagesArr.length - 2){
+        if(this.props.sourceArr[nextElem].found ){
           this.selectItem(nextElem);
           setInterval(()=>{
             this.props.completeFind(this.props.labelsArr[nextElem]);
@@ -33,7 +33,7 @@ class CoverFlow extends React.Component {
         else{
           this.selectItem(nextElem);
         }
-      }, 200);
+      }, 300);
     }, 1000);
   }
 

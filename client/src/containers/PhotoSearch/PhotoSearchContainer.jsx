@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import PhotoSearch from '../../components/PhotoSearch/PhotoSearch';
 import people1 from '../../static/people/andr1.jpg';
 import people2 from '../../static/people/Алексей Катцын.jpg';
@@ -22,12 +23,12 @@ const nanoid = require('nanoid');
 
 
 class Photo {
-  constructor(url) {
+  constructor(url, found = false) {
     const id = nanoid();
     this.id = id;
     this.url = url;
     this.alt = id;
-    this.is = false;
+    this.found = found;
   }
 }
 let photos = [
@@ -48,14 +49,30 @@ let photos = [
   new Photo(people15)
 ];
 
-photos = photos.concat(photos,
-    photos, photos, photos,
-    photos);
+// photos = photos.concat(photos,
+//     photos,
+//     photos, photos,
+//     photos);
 
 class PhotoSearchContainer extends Component {
+  state = {
+    photos
+  };
+
+  componentWillMount() {
+    const morePhotos = setInterval(()=>{
+      const newPhotos = [].concat(this.state.photos, _.shuffle(this.state.photos));
+      newPhotos.push(new Photo(people15, true));
+      newPhotos.push(new Photo(people14));
+
+      this.setState({photos: newPhotos});
+      clearInterval(morePhotos);
+    }, 15 * 300);
+  }
+
   render() {
     return (
-        <PhotoSearch photos={photos}/>
+        <PhotoSearch photos={this.state.photos}/>
     );
   }
 }

@@ -33,6 +33,7 @@ class PhotoSearch extends Component {
                 height="768"
                 itemRatio="5:6"
                 background="rgba(255,255,255,0)"
+                sourceArr={photos}
                 labelsArr={
                   photos.map((photo) => {
                     return photo.alt;
