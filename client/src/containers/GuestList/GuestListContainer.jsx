@@ -51,32 +51,31 @@ class GuestListContainer extends Component {
   state = { items: [] };
 
   componentWillMount() {
-    request
-        .get(API.BackendApi(`/getAllClients`))
-        .type('json')
-        .timeout({
-          response: 60000,  // Wait 5 seconds for the server to start sending,
-          deadline: 70000, // but allow 1 minute for the file to finish loading.
-        })
-        .end((err, res) => {
-          if(res.body){
-            this.setState({ items: res.body });
-          }
-          else{
-            console.log(res);
-          }
-        });
-    // setTimeout(()=>{
-    //
-    // },100);
+    setTimeout(()=>{
+      request
+          .get(API.BackendApi(`/getAllClients`))
+          .type('json')
+          .timeout({
+            response: 60000,  // Wait 5 seconds for the server to start sending,
+            deadline: 70000, // but allow 1 minute for the file to finish loading.
+          })
+          .end((err, res) => {
+            if(res.body){
+              this.setState({ items: res.body });
+            }
+            else{
+              console.log(res);
+            }
+          });
+    },100);
   }
 
   render() {
-    console.log(items);
+    console.log(this.state.items);
     return (
         <div className="wrapper">
           {/*<ShadowScrollbars style={{ height: '100%'}}>*/}
-          <GuestList items={items}/>
+          <GuestList items={this.state.items}/>
           {/*</ShadowScrollbars>*/}
         </div>
     );

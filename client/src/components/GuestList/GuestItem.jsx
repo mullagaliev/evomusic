@@ -14,7 +14,7 @@ class GuestItem extends Component {
             <Header as='h2' textAlign='center'>
               {guest.name}
               <span> </span>
-              <a href={`https://vk.com/${guest.vkId}`} target="_blank">
+              <a href={`https://vk.com/id${guest.vkId}`} target="_blank">
                 <Icon name={'vk'}/>
               </a>
             </Header>
@@ -39,7 +39,9 @@ class GuestItem extends Component {
                       <Image avatar src={defaultMusicImage} />
                       <List.Content>
                         <List.Header as='a'>{audio}</List.Header>
-                        <List.Description>Последний раз <b>{2} мин. назад</b></List.Description>
+                        <List.Description>
+                          Последний раз <b>{2} мин. назад</b>
+                        </List.Description>
                       </List.Content>
                     </List.Item>
               })}

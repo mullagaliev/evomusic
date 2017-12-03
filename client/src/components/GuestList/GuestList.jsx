@@ -33,7 +33,7 @@ class GuestList extends Component {
             Гости заведения
           </Header.Content>
         </Header>
-        <Table size='large'>
+        <Table size='large' verticalAlign="top">
           <Table.Header>
             <Table.Row className={'font20px'}>
               <Table.HeaderCell singleLine textAlign='center'>Имя</Table.HeaderCell>
