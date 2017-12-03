@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import GuestList from '../../components/GuestList/GuestList';
 import ShadowScrollbars from '../../components/common/ShadowScrollbars/ShadowScrollbars';
 import _ from 'lodash';
+import request from 'superagent';
+import API from '../../constants/api.js';
+
 const nanoid = require('nanoid');
 
 
@@ -45,17 +48,35 @@ items = items.sort((a, b) => {
 });
 
 class GuestListContainer extends Component {
-  componentWillMount(){
-    setTimeout(()=>{
+  state = { items: [] };
 
-    },100);
+  componentWillMount() {
+    request
+        .get(API.BackendApi(`/getAllClients`))
+        .type('json')
+        .timeout({
+          response: 60000,  // Wait 5 seconds for the server to start sending,
+          deadline: 70000, // but allow 1 minute for the file to finish loading.
+        })
+        .end((err, res) => {
+          if(res.body){
+            this.setState({ items: res.body });
+          }
+          else{
+            console.log(res);
+          }
+        });
+    // setTimeout(()=>{
+    //
+    // },100);
   }
+
   render() {
     console.log(items);
     return (
         <div className="wrapper">
           {/*<ShadowScrollbars style={{ height: '100%'}}>*/}
-            <GuestList items={items}/>
+          <GuestList items={items}/>
           {/*</ShadowScrollbars>*/}
         </div>
     );

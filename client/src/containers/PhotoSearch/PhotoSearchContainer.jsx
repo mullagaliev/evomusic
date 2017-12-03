@@ -36,6 +36,15 @@ const people12 = 'http://127.0.0.1:8080/12.jpg';
 const people13 = 'http://127.0.0.1:8080/13.jpg';
 const people14 = 'http://127.0.0.1:8080/14.jpg';
 const people15 = 'http://127.0.0.1:8080/15.jpg';
+const people16 = 'http://127.0.0.1:8080/16.jpg';
+const people17 = 'http://127.0.0.1:8080/17.jpg';
+const people18 = 'http://127.0.0.1:8080/18.jpg';
+const people19 = 'http://127.0.0.1:8080/19.jpg';
+const people20 = 'http://127.0.0.1:8080/20.jpg';
+const people21 = 'http://127.0.0.1:8080/21.jpg';
+const people22 = 'http://127.0.0.1:8080/22.jpg';
+const people23 = 'http://127.0.0.1:8080/23.jpg';
+const people24 = 'http://127.0.0.1:8080/24.jpg';
 
 const nanoid = require('nanoid');
 
@@ -65,8 +74,19 @@ let photos = [
   new Photo(people12, false, 'Юля'),
   new Photo(people13, false, 'Влад'),
   new Photo(people14, false, 'Ира'),
-  new Photo(people15, false, 'Олег')
+  new Photo(people15, false, 'Олег'),
+  new Photo(people16, false, 'Алёна'),
+  new Photo(people17, false, 'Анна'),
+  new Photo(people18, false, 'Влад'),
+  new Photo(people19, false, 'Денис'),
+  new Photo(people20, false, 'Дмитрий'),
+  new Photo(people21, false, 'Илья'),
+  new Photo(people22, false, 'Надежда'),
+  new Photo(people23, false, 'Светлана'),
+  new Photo(people24, false, 'Ольга')
 ];
+
+photos = photos.concat(photos, photos);
 
 // photos = photos.concat(photos,
 //     photos,
@@ -81,22 +101,46 @@ class PhotoSearchContainer extends Component {
   };
 
   componentWillMount() {
-    request
-        .get(API.BackendApi(`/getPhotoUrl/${this.props.userId}`))
-        .type('json')
-        .end((err, res) => {
-          this.setState({ foundPhoto: res.body });
-        });
-    const morePhotos = setInterval(() => {
-      const newPhotos = [].concat(this.state.photos, _.shuffle(this.state.photos));
+    setTimeout(()=>{
+      const morePhotos = setInterval(() => {
+        if (this.state.foundPhoto) {
+          const newPhotos = [].concat(this.state.photos);
+          newPhotos.push(new Photo(this.state.foundPhoto.vkPhotoUrl, true, this.state.foundPhoto.name));
+          newPhotos.push(new Photo(people14));
+          this.setState({ photos: newPhotos });
+          clearInterval(morePhotos);
+        }
+        // this.setState({ photos: newPhotos });
+      }, 300);
 
-      if(this.state.foundPhoto){
-        newPhotos.push(new Photo(this.state.foundPhoto.vkPhotoUrl, true, this.state.foundPhoto.name));
-        newPhotos.push(new Photo(people14));
-        clearInterval(morePhotos);
-      }
-      this.setState({ photos: newPhotos });
-    }, 15 * 500);
+      const ApiRequest = () => {
+        request
+            .get(API.BackendApi(`/getPhotoUrl/${this.props.userId}`))
+            .type('json')
+            .end((err, res) => {
+              console.log('Конец запроса');
+              console.log(res, err);
+              if (err) {
+                console.log('Конец запроса (ошибка)');
+                console.log(res, err);
+              }
+              else {
+                console.log('Конец запроса (успешно)');
+                console.log(res);
+                if (res.body) {
+                  console.log('SetState foundPhoto', res.body);
+                  this.setState({ foundPhoto: res.body });
+                }
+                else {
+                  setTimeout(()=>{
+                    ApiRequest();
+                  },1000);
+                }
+              }
+            });
+      };
+      ApiRequest();
+    }, 2000);
   }
 
   render() {

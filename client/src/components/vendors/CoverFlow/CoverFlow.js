@@ -25,9 +25,7 @@ class CoverFlow extends React.Component {
         const nextElem = this.state.selectedIndex + 1 < this.props.imagesArr.length ? this.state.selectedIndex + 1 : this.props.imagesArr.length - 1;
         if(this.props.sourceArr[nextElem].found ){
           this.selectItem(nextElem);
-          setInterval(()=>{
             this.props.completeFind(this.props.labelsArr[nextElem]);
-          }, 1000);
           clearInterval(nextSlide);
         }
         else{
@@ -36,7 +34,11 @@ class CoverFlow extends React.Component {
       }, 500);
     }, 1000);
   }
-
+  componentWillReceiveProps(nextProps){
+    // if(nextProps.imagesArr.length !== this.props.imagesArr.length){
+    //   this.setState({selectedIndex: 0});
+    // }
+  }
   render() {
     let width, height;
     if (this.props.direction === 'vertical') {

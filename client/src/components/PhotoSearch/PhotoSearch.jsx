@@ -38,7 +38,10 @@ class PhotoSearch extends Component {
             this.state.startSearch ? <div className={styles.PhotoSearchSlider}>
                 <CoverFlow
                     className={styles.CoverFlow}
-                    completeFind={(foundName) => this.setState({ foundName })}
+                    completeFind={(foundName) => {
+                      this.setState({ foundName });
+                      console.log(foundName);
+                    }}
                     direction="vertical"
                     width="300"
                     height="768"
