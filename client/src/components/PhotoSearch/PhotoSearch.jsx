@@ -7,8 +7,15 @@ const styles = require('./PhotoSearch.sass');
 
 class PhotoSearch extends Component {
   state = {
-    foundName: null
+    foundName: null,
+    startSearch: false
   };
+
+  componentWillMount() {
+    setTimeout(() => {
+      this.setState({ startSearch: true });
+    }, 3000);
+  }
 
   render() {
     const { photos, cameraPhoto } = this.props;
@@ -22,30 +29,34 @@ class PhotoSearch extends Component {
               </div>
             </div>
           </div>
-          <Loader size='massive' active={this.state.foundName === null}>
-            Загрузка....
-          </Loader>
-          <div className={styles.PhotoSearchSlider}>
-            <CoverFlow
-                className={styles.CoverFlow}
-                completeFind={(foundName) => this.setState({ foundName })}
-                direction="vertical"
-                width="300"
-                height="768"
-                itemRatio="5:6"
-                background="rgba(255,255,255,0)"
-                sourceArr={photos}
-                labelsArr={
-                  photos.map((photo) => {
-                    return photo.alt;
-                  })
-                }
-                imagesArr={
-                  photos.map((photo) => {
-                    return photo.url;
-                  })
-                }/>
-          </div>
+          {
+            this.state.startSearch ?  <Loader size='massive' active={this.state.foundName === null}>
+              Поиск....
+            </Loader> : null
+          }
+          {
+            this.state.startSearch ? <div className={styles.PhotoSearchSlider}>
+                <CoverFlow
+                    className={styles.CoverFlow}
+                    completeFind={(foundName) => this.setState({ foundName })}
+                    direction="vertical"
+                    width="300"
+                    height="768"
+                    itemRatio="5:6"
+                    background="rgba(255,255,255,0)"
+                    sourceArr={photos}
+                    labelsArr={
+                      photos.map((photo) => {
+                        return photo.name;
+                      })
+                    }
+                    imagesArr={
+                      photos.map((photo) => {
+                        return photo.url;
+                      })
+                    }/>
+              </div> : null
+          }
         </div>
     );
   }

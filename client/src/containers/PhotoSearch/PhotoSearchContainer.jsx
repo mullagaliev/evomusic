@@ -41,30 +41,31 @@ const nanoid = require('nanoid');
 
 
 class Photo {
-  constructor(url, found = false) {
+  constructor(url, found = false, name = null) {
     const id = nanoid();
     this.id = id;
     this.url = url;
     this.alt = id;
+    this.name = name;
     this.found = found;
   }
 }
 let photos = [
-  new Photo(people1),
-  new Photo(people2),
-  new Photo(people3),
-  new Photo(people4),
-  new Photo(people5),
-  new Photo(people6),
-  new Photo(people7),
-  new Photo(people8),
-  new Photo(people9),
-  new Photo(people10),
-  new Photo(people11),
-  new Photo(people12),
-  new Photo(people13),
-  new Photo(people14),
-  new Photo(people15)
+  new Photo(people1, false, 'Андрей'),
+  new Photo(people2, false, 'Никита'),
+  new Photo(people3, false, 'Дарья'),
+  new Photo(people4, false, 'Оля'),
+  new Photo(people5, false, 'Гена'),
+  new Photo(people6, false, 'Миша'),
+  new Photo(people7, false, 'Павел'),
+  new Photo(people8, false, 'Иван'),
+  new Photo(people9, false, 'Екатерина'),
+  new Photo(people10, false, 'Настя'),
+  new Photo(people11, false, 'Иван'),
+  new Photo(people12, false, 'Юля'),
+  new Photo(people13, false, 'Влад'),
+  new Photo(people14, false, 'Ира'),
+  new Photo(people15, false, 'Олег')
 ];
 
 // photos = photos.concat(photos,
@@ -82,20 +83,20 @@ class PhotoSearchContainer extends Component {
   componentWillMount() {
     request
         .get(API.BackendApi(`/getPhotoUrl/${this.props.userId}`))
+        .type('json')
         .end((err, res) => {
-          console.log(res);
-          this.setState({ foundPhoto: res.text });
+          this.setState({ foundPhoto: res.body });
         });
     const morePhotos = setInterval(() => {
       const newPhotos = [].concat(this.state.photos, _.shuffle(this.state.photos));
 
       if(this.state.foundPhoto){
-        newPhotos.push(new Photo(this.state.foundPhoto, true));
+        newPhotos.push(new Photo(this.state.foundPhoto.vkPhotoUrl, true, this.state.foundPhoto.name));
         newPhotos.push(new Photo(people14));
         clearInterval(morePhotos);
       }
       this.setState({ photos: newPhotos });
-    }, 15 * 300);
+    }, 15 * 500);
   }
 
   render() {

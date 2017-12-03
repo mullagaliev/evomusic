@@ -33,7 +33,7 @@ class CoverFlow extends React.Component {
         else{
           this.selectItem(nextElem);
         }
-      }, 300);
+      }, 500);
     }, 1000);
   }
 
