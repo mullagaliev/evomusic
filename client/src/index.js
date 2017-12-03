@@ -14,8 +14,12 @@ ReactDOM.render(
           return <div>Hello!</div>
         }
         }/>
-        <Route path='/photos/search' component={PhotoSearchContainer}/>
-        <Route path='/dashboard' component={GuestListContainer}/>
+        <Route path='/photos/search/:userId' component={
+          ({ match }) => {
+            return <PhotoSearchContainer userId={match.params.userId}/>
+          }
+        }/>
+        <Route path='/dashboard/' component={GuestListContainer}/>
         <Route path='/' component={App}/>
       </Switch>
     </Router>, document.getElementById('root'));

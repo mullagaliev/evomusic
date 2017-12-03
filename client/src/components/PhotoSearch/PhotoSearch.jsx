@@ -11,11 +11,12 @@ class PhotoSearch extends Component {
   };
 
   render() {
-    const { photos } = this.props;
+    const { photos, cameraPhoto } = this.props;
     return (
         <div className={styles.PhotoSearch}>
           <div className={styles.PhotoSearchSource}>
-            <div className={styles.PhotoSearchSourcePhoto}>
+            <div className={styles.PhotoSearchSourcePhoto}
+                 style={{ backgroundImage: `url(${cameraPhoto})` }}>
               <div className={styles.PhotoSearchSourceTitle}>
                 {this.state.foundName ? this.state.foundName : '???' }
               </div>
